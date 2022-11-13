@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GasoXpress - Gasolineras Santa Ana</string>
+    <string name="opt1">Agregar</string>
+    <string name="opt2">Ver</string>
+    <string name="opt3">Acerca de</string>
+    <string name="opt4">Salir</string>
 </resources>
