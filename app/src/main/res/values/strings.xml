@@ -1,7 +1,17 @@
 <resources>
+    <!-- String names para activity Main -->
     <string name="app_name">GasoXpress - Gasolineras Santa Ana</string>
     <string name="opt1">Agregar</string>
     <string name="opt2">Ver</string>
     <string name="opt3">Acerca de</string>
     <string name="opt4">Salir</string>
+
+    <!-- String names para activity agregar -->
+    <string name="nombrePortada">Agregar gasolineras en Santa Ana</string>
+    <string name="eTextLatitud">Latitud</string>
+    <string name="eTextLongitud">Longitud</string>
+    <string name="eTextdescRefe">Descripcion o punto de referencia</string>
+    <string name="textBtnCoordenadas">Coordenadas</string>
+    <string name="textBtnFoto">Foto</string>
+    <string name="textBtnGuardar">Guardar</string>
 </resources>
