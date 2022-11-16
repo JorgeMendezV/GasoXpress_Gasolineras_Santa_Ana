@@ -200,7 +200,6 @@ public class agregar extends AppCompatActivity {
             values.put(MediaStore.Images.Media.TITLE, "Gasolinera");
             values.put(MediaStore.Images.Media.DESCRIPTION, "Foto tomada el " + System.currentTimeMillis());
 
-
             // getContentResolver insert 29 and below API error
             // Getting the error pre android Q (API 29) and my huawei API is 28 so... theres the problem
             imageUri = getContentResolver().insert(
@@ -209,7 +208,7 @@ public class agregar extends AppCompatActivity {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             startActivityForResult(intent, PICTURE_RESULT);
         } catch (Exception e){
-            System.out.println("Aqui esta el error en android 9");
+            System.out.println("Error de API >= 29");
         }
     }
 
