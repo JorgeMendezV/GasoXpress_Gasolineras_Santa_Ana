@@ -43,7 +43,7 @@ public class agregar extends AppCompatActivity {
     // This class is used to store a set of values that the ContentResolver can process.
     private ContentValues values;
     // Uniform Resource Identifier (URI)
-    private Uri imageUri = null;
+    private Uri imageUri;
     //
     private static final int PICTURE_RESULT = 122;
     // Objeto para almacenar imagenes
@@ -137,6 +137,7 @@ public class agregar extends AppCompatActivity {
         }
     }
 
+    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
         switch (requestCode) {
             case REQUEST_CODE_ASK_MULTIPLE_PERMISSION: {
@@ -145,7 +146,6 @@ public class agregar extends AppCompatActivity {
 
                 Map<String, Integer> perms = new HashMap<>();
                 // creamos un elemento que se llama permisos
-
                 perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
                 perms.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
                 perms.put(Manifest.permission.CAMERA, PackageManager.PERMISSION_GRANTED);
@@ -197,9 +197,9 @@ public class agregar extends AppCompatActivity {
     // quien manejara el objeto sera quien mandara a llamar el objeto.
     public void anexarFoto(View view) throws IOException {
         try {
+            values = new ContentValues();
             values.put(MediaStore.Images.Media.TITLE, "Gasolinera");
             values.put(MediaStore.Images.Media.DESCRIPTION, "Foto tomada el " + System.currentTimeMillis());
-
             // getContentResolver insert 29 and below API error
             // Getting the error pre android Q (API 29) and my huawei API is 28 so... theres the problem
             imageUri = getContentResolver().insert(
@@ -207,8 +207,9 @@ public class agregar extends AppCompatActivity {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             startActivityForResult(intent, PICTURE_RESULT);
-        } catch (Exception e){
-            System.out.println("Error de API >= 29");
+        } catch (Exception error){
+            System.out.println("API VERSION: " + Build.VERSION.SDK_INT);
+            System.out.println("Error de API <= 29 : " + error);
         }
     }
 
