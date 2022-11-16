@@ -1,14 +1,11 @@
 package com.example.gasoxpress_gasolinerassantaana;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
@@ -21,6 +18,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class agregar extends AppCompatActivity {
     // This class is used to store a set of values that the ContentResolver can process.
     private ContentValues values;
     // Uniform Resource Identifier (URI)
-    private Uri imageUri;
+    private Uri imageUri = null;
     //
     private static final int PICTURE_RESULT = 122;
     // Objeto para almacenar imagenes
@@ -111,6 +112,7 @@ public class agregar extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             permission.add(Manifest.permission.ACCESS_FINE_LOCATION);
             message = "\n permiso de localizacion";
+            System.out.println("");
         }
 
         //
@@ -130,7 +132,6 @@ public class agregar extends AppCompatActivity {
             System.out.println(message);
             String[] parents = permission.toArray(new String[permission.size()]);
             if(Build.VERSION.SDK_INT >= 23){
-                // ES UNA COSTANTE, no necesariamente debe llamarse asi pero es buena practica
                 requestPermissions(parents, REQUEST_CODE_ASK_MULTIPLE_PERMISSION);
             }
         }
@@ -141,8 +142,10 @@ public class agregar extends AppCompatActivity {
             case REQUEST_CODE_ASK_MULTIPLE_PERMISSION: {
                 // structura de tipo de clave valor, vector unidimensional, solamente tengo valor y la clave asociada
                 // bases de datos clave valor.
+
                 Map<String, Integer> perms = new HashMap<>();
                 // creamos un elemento que se llama permisos
+
                 perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
                 perms.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
                 perms.put(Manifest.permission.CAMERA, PackageManager.PERMISSION_GRANTED);
@@ -193,13 +196,43 @@ public class agregar extends AppCompatActivity {
     // objeto de tipo view, este metodo tirara un error de tipo. Quien manejara el error sera quien envie el error.
     // quien manejara el objeto sera quien mandara a llamar el objeto.
     public void anexarFoto(View view) throws IOException {
-        values = new ContentValues();
-        values.put(MediaStore.Images.Media.TITLE, "Gasolinera");
-        values.put(MediaStore.Images.Media.DESCRIPTION, "Foto tomada el " + System.currentTimeMillis());
-        imageUri = getContentResolver().insert(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        startActivityForResult(intent, PICTURE_RESULT);
+        try {
+            values.put(MediaStore.Images.Media.TITLE, "Gasolinera");
+            values.put(MediaStore.Images.Media.DESCRIPTION, "Foto tomada el " + System.currentTimeMillis());
+
+
+            // getContentResolver insert 29 and below API error
+            // Getting the error pre android Q (API 29) and my huawei API is 28 so... theres the problem
+            imageUri = getContentResolver().insert(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            startActivityForResult(intent, PICTURE_RESULT);
+        } catch (Exception e){
+            System.out.println("Aqui esta el error en android 9");
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, final int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICTURE_RESULT){
+            try {
+                thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                img.setImageBitmap(thumbnail);
+                attachFileName = getRealPathFromUri(imageUri);
+                System.out.println(attachFileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private String getRealPathFromUri(Uri imageUri) {
+        String[] proj = { MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(imageUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 }
