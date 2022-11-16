@@ -26,11 +26,13 @@
             />
 
     <EditText
+        android:id="@+id/txtLatitud"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/eTextLatitud"/>
 
     <EditText
+        android:id="@+id/txtLongitud"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/eTextLongitud"/>

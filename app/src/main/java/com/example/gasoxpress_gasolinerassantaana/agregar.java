@@ -49,6 +49,12 @@ public class agregar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar);
 
+        // el metodo findID devuelve un objeto, es necesario hacer casting.
+        txtLongitud = (EditText) findViewById(R.id.txtLongitud);
+        txtLongitud = (EditText) findViewById(R.id.txtLatitud);
+        txtLongitud = (EditText) findViewById(R.id.txtDescripcion);
+        img = (ImageView) findViewById(R.id.fotoGasolinera);
+
         // los spinner son una forma eficiente de seleccionar un valor de un conjunto.
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -71,6 +77,12 @@ public class agregar extends AppCompatActivity {
         // asigna el valor actual de un theme particular.
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(dataAdapter);
+
+
+        // verificar la version del celular para asignar permisos
+
+
+
     }
 
 
