@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -14,12 +15,14 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -151,9 +154,9 @@ public class agregar extends AppCompatActivity {
                     System.out.println("All permissions granted");
 
                 } else if (location) {
-                    System.out.println("Location permission is required to store map tiles to reduce data usage and for offline usage.");
+                    System.out.println("Storage permission is required to store map tiles to reduce data usage and for offline usage.");
                 } else if (storage) {
-                    System.out.println("Storage permission is required to show the user's location on map.");
+                    System.out.println("Location permission is required to show the user's location on map.");
                 } else {
                     System.out.println("Storage permission is required to store map tiles to reduce data usage and for offline usage." +
                             "\nLocation permission is required to show the user's location on map.");
@@ -181,9 +184,22 @@ public class agregar extends AppCompatActivity {
         }
 
         if (loc != null) {
-            System.out.println(String.valueOf(loc.getLongitude()));
+            //System.out.println(String.valueOf(loc.getLongitude()));
             txtLatitud.setText(String.valueOf(loc.getLatitude()));
             txtLongitud.setText(String.valueOf(loc.getLongitude()));
         }
+    }
+
+    // objeto de tipo view, este metodo tirara un error de tipo. Quien manejara el error sera quien envie el error.
+    // quien manejara el objeto sera quien mandara a llamar el objeto.
+    public void anexarFoto(View view) throws IOException {
+        values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "Gasolinera");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Foto tomada el " + System.currentTimeMillis());
+        imageUri = getContentResolver().insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intent, PICTURE_RESULT);
     }
 }
