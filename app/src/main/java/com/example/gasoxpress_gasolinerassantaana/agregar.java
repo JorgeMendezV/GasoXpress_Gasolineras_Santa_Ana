@@ -1,10 +1,16 @@
 package com.example.gasoxpress_gasolinerassantaana;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -12,7 +18,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class agregar extends AppCompatActivity {
 
@@ -78,13 +86,86 @@ public class agregar extends AppCompatActivity {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(dataAdapter);
 
-
         // verificar la version del celular para asignar permisos
 
+        if(Build.VERSION.SDK_INT >= 23){
+            //
+            System.out.println("Version de SDK" + Build.VERSION.SDK_INT);
+            checkPermission();
 
+        }
+        //
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+    }
+    private void checkPermission() {
+        //
+        List<String> permission = new ArrayList<String>();
+        String message = "";
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            permission.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            message = "\n permiso de localizacion";
+        }
 
+        //
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            permission.add(Manifest.permission.CAMERA);
+            message = "\n permiso de usar camara";
+        }
+
+        //
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            permission.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            message = "\n permiso de almacenamiento de imagen";
+        }
+
+        //
+        if (!permission.isEmpty()){
+            System.out.println(message);
+            //
+            String[] parents = permission.toArray(new String[permission.size()]);
+            if (Build.VERSION.SDK_INT >= 23){
+                //
+                requestPermissions(parents, REQUEST_CODE_ASK_MULTIPLE_PERMISSION);
+            }
+        }
     }
 
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+        switch (requestCode){
+            // si el valor es 124
+            case REQUEST_CODE_ASK_MULTIPLE_PERMISSION: {
+                // estructura de tipo clave valor, vector unidimensional, solamente se tiene valor y clave asociada.
+                // base de datos tipo clave valor.
+                Map<String, Integer> perms = new HashMap<>();
+                perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.CAMERA, PackageManager.PERMISSION_GRANTED);
 
+                //
+                for (int i = 0; i < permissions.length; i++){
+                    perms.put(permissions[i], grantResults[i]);
+                }
+                //
+                Boolean location = perms.get(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                Boolean storage = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+                //
+                if (location && storage){
+                    System.out.println("All permission granted");
+                } else if (storage) {
+                    System.out.println("Storage permission is required to store map tile to reduce data usage and for offline usage");
 
+                }else if (location) {
+                    System.out.println("Location permission is required to show the users location on map");
+
+                } else {
+                    System.out.println("Storage permission is required to store map tile to reduce data usage and for offline usage" +
+                            "\nLocation permission is required to show the users location on map");
+                }
+            }
+            break;
+            //
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 }
