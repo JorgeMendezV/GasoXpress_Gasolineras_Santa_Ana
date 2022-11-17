@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:theme="@style/Theme.AppCompat.Light"
     tools:context=".Lista">
 
     <ListView
-        android:layout_width="match_parent"
         android:id="@+id/lista"
         android:layout_margin="15dp"
-        android:layout_height="match_parent"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
