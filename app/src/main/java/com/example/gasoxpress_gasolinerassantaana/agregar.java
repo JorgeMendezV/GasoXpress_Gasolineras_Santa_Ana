@@ -101,7 +101,6 @@ public class agregar extends AppCompatActivity {
             checkPermission();
 
         }
-        //
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     }
 
@@ -187,7 +186,6 @@ public class agregar extends AppCompatActivity {
         }
 
         if (loc != null) {
-            //System.out.println(String.valueOf(loc.getLongitude()));
             txtLatitud.setText(String.valueOf(loc.getLatitude()));
             txtLongitud.setText(String.valueOf(loc.getLongitude()));
         }
