@@ -3,10 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Alberto Mendez/AndroidStudioProjects/GasoXpress_Gasolineras_Santa_Ana/app/src/main/res/drawable-anydpi/ic_dropdown.xml" value="0.1155" />
+        <entry key="..\:/Users/Alberto Mendez/AndroidStudioProjects/GasoXpress_Gasolineras_Santa_Ana/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2145" />
+        <entry key="..\:/Users/Alberto Mendez/AndroidStudioProjects/GasoXpress_Gasolineras_Santa_Ana/app/src/main/res/drawable/borde_imagen.xml" value="0.2125" />
         <entry key="..\:/Users/Alberto Mendez/AndroidStudioProjects/GasoXpress_Gasolineras_Santa_Ana/app/src/main/res/drawable/borde_redondo.xml" value="0.2125" />
         <entry key="..\:/Users/Alberto Mendez/AndroidStudioProjects/GasoXpress_Gasolineras_Santa_Ana/app/src/main/res/drawable/spinnerdesign.xml" value="0.2125" />
-        <entry key="..\:/Users/Alberto Mendez/AndroidStudioProjects/GasoXpress_Gasolineras_Santa_Ana/app/src/main/res/layout/activity_agregar.xml" value="0.14325842696629212" />
-        <entry key="..\:/Users/Alberto Mendez/AndroidStudioProjects/GasoXpress_Gasolineras_Santa_Ana/app/src/main/res/layout/activity_main.xml" value="0.1390625" />
+        <entry key="..\:/Users/Alberto Mendez/AndroidStudioProjects/GasoXpress_Gasolineras_Santa_Ana/app/src/main/res/drawable/spinnerstyle.xml" value="0.1155" />
+        <entry key="..\:/Users/Alberto Mendez/AndroidStudioProjects/GasoXpress_Gasolineras_Santa_Ana/app/src/main/res/layout/activity_agregar.xml" value="0.25" />
+        <entry key="..\:/Users/Alberto Mendez/AndroidStudioProjects/GasoXpress_Gasolineras_Santa_Ana/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/Users/Alberto Mendez/AndroidStudioProjects/GasoXpress_Gasolineras_Santa_Ana/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2145" />
       </map>
     </option>
   </component>

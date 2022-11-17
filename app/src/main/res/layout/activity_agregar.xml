@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".agregar">
 
     <TextView
@@ -17,81 +17,89 @@
         android:textSize="22sp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
-        android:textStyle="normal" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Selecciona una gasolinera:"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        />
-    <Spinner
-        android:layout_width="match_parent"
-        android:id="@+id/spinner"
-        android:layout_height="wrap_content"
-         />
-
-    <EditText
-        android:id="@+id/txtLatitud"
-        android:textColor="@color/black"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColorHint="@color/black"
-        android:hint="@string/eTextLatitud"/>
-
-    <EditText
-        android:id="@+id/txtLongitud"
-        android:textColor="@color/black"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColorHint="@color/black"
-        android:hint="@string/eTextLongitud"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:textColor="@color/black"
-        android:layout_height="wrap_content"
-        android:textColorHint="@color/black"
-        android:layout_weight="1"
-        android:id="@+id/txtDescripcion"
-        android:hint="@string/eTextdescRefe"
-        android:gravity="top"
-        />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:id="@+id/fotoGasolinera"
-        />
+        android:textStyle="bold" />
 
     <LinearLayout
+        android:background="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="20dp">
+        android:orientation="vertical"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
 
-        <Button
-            android:layout_width="wrap_content"
+        <Spinner
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/borde_redondo"
-            android:onClick="obtenerLatLng"
-            android:text="@string/textBtnCoordenadas"/>
+            android:id="@+id/spinner"
+            android:layout_marginStart="100dp"
+            android:layout_margin="10dp"
+            />
+        <EditText
+            android:id="@+id/txtLatitud"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/black"
+            android:hint="@string/eTextLatitud"/>
 
-        <Button
-            android:layout_marginLeft="5dp"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/txtLongitud"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="anexarFoto"
-            android:background="@drawable/borde_redondo"
-            android:text="@string/textBtnFoto"/>
+            android:textColorHint="@color/black"
+            android:hint="@string/eTextLongitud"/>
 
-        <Button
-            android:layout_marginLeft="5dp"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/txtDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="271dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:hint="@string/eTextdescRefe"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:id="@+id/fotoGasolinera"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/borde_redondo"
-            android:onClick="guardarDatos"
-            android:text="@string/textBtnGuardar"/>
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/borde_redondo"
+                android:onClick="obtenerLatLng"
+                android:textSize="10dp"
+                android:text="@string/textBtnCoordenadas"/>
+
+            <Button
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:onClick="anexarFoto"
+                android:background="@drawable/borde_redondo"
+                android:text="@string/textBtnFoto"/>
+
+            <Button
+                android:layout_marginLeft="5dp"
+                android:textSize="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/borde_redondo"
+                android:text="@string/textBtnGuardar"/>
+        </LinearLayout>
+
     </LinearLayout>
+    
 </LinearLayout>

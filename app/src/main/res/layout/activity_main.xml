@@ -10,8 +10,11 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="@drawable/fondo"/>
+        android:layout_height="260dp"
+        android:layout_marginLeft="-30dp"
+        android:layout_marginTop="-30dp"
+        android:layout_marginRight="-30dp"
+        android:background="@drawable/borde_imagen"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,23 +23,24 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="32sp"
-        android:layout_marginTop="10dp"
         android:textStyle="bold" />
 
     <Button
         android:layout_width="match_parent"
-        android:text="@string/opt1"
+        android:text="@string/opt1" android:drawableRight = "@drawable/add_map_locationicon"
         android:textSize="24sp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginTop="20dp"
+        android:textAlignment="gravity"
         android:background="@drawable/borde_redondo"
         android:layout_height="wrap_content"
         android:onClick="ejecutarAgregar"/>
 
     <Button
         android:layout_width="match_parent"
-        android:text="@string/opt2"
+        android:text="@string/opt2" android:drawableRight = "@drawable/information_folder_icon"
+        android:textAlignment="gravity"
         android:textSize="24sp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
@@ -46,7 +50,8 @@
 
     <Button
         android:layout_width="match_parent"
-        android:text="@string/opt3"
+        android:text="@string/opt3" android:drawableRight = "@drawable/about_information_icon"
+        android:textAlignment="gravity"
         android:textSize="24sp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
@@ -56,7 +61,8 @@
 
     <Button
         android:layout_width="match_parent"
-        android:text="@string/opt4"
+        android:text="@string/opt4" android:drawableRight = "@drawable/exit_alert_icon"
+        android:textAlignment="gravity"
         android:textSize="24sp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
