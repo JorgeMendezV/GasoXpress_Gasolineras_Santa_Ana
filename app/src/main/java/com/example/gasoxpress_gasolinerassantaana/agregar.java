@@ -78,6 +78,7 @@ public class agregar extends AppCompatActivity {
         // modelo
         List<String> gasolineras = new ArrayList<String>();
         // simplemente agregamos una serie de datos al array nada diferente.
+        String defaultTextSpinner;
         gasolineras.add("UNO");
         gasolineras.add("Puma Gas Station");
         gasolineras.add("DSC");

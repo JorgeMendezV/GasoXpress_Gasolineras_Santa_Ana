@@ -5,6 +5,7 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:theme="@style/Theme.AppCompat.Light"
     android:orientation="vertical"
     tools:context=".agregar">
 
@@ -20,7 +21,6 @@
         android:textStyle="bold" />
 
     <LinearLayout
-        android:background="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -79,12 +79,14 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/borde_redondo"
                 android:onClick="obtenerLatLng"
+                android:textColor="@color/white"
                 android:textSize="10dp"
                 android:text="@string/textBtnCoordenadas"/>
 
             <Button
                 android:layout_marginLeft="5dp"
                 android:layout_width="wrap_content"
+                android:textColor="@color/white"
                 android:layout_height="wrap_content"
                 android:textSize="10dp"
                 android:onClick="anexarFoto"
@@ -93,6 +95,7 @@
 
             <Button
                 android:layout_marginLeft="5dp"
+                android:textColor="@color/white"
                 android:textSize="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
