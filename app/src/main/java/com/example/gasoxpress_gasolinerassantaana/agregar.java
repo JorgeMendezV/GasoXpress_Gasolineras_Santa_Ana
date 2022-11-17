@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
@@ -18,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -101,7 +103,6 @@ public class agregar extends AppCompatActivity {
             checkPermission();
 
         }
-        //
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     }
 
@@ -187,7 +188,6 @@ public class agregar extends AppCompatActivity {
         }
 
         if (loc != null) {
-            //System.out.println(String.valueOf(loc.getLongitude()));
             txtLatitud.setText(String.valueOf(loc.getLatitude()));
             txtLongitud.setText(String.valueOf(loc.getLongitude()));
         }
@@ -234,5 +234,28 @@ public class agregar extends AppCompatActivity {
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
+    }
+
+    //Metodo para guardar los datos a la tabla de gasoxpress
+    public void guardarDatos(View view) {
+        abrirDB base= new abrirDB(this,"gasolinerasT",null,1);
+        SQLiteDatabase bd= base.getWritableDatabase();
+        String gasolinera=spinner.getSelectedItem().toString();
+        String latitud=txtLatitud.getText().toString();
+        String longitud=txtLongitud.getText().toString();
+        String descrip=txtDescripcion.getText().toString();
+        ContentValues registro=new ContentValues();
+        registro.put("gasolinera", gasolinera);
+        registro.put("latitud", latitud);
+        registro.put("longitud", longitud);
+        registro.put("descripcion", descrip);
+        registro.put("foto", attachFileName);
+        bd.insert("gasoxpress", null, registro);
+        txtLongitud.setText("");
+        txtLatitud.setText("");
+        txtDescripcion.setText("");
+        bd.close();
+        Toast.makeText(this, "Se cargaron los datos correctamente",
+                Toast.LENGTH_LONG).show();
     }
 }
