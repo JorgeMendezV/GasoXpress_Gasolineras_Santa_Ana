@@ -91,6 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/borde_redondo"
+            android:onClick="guardarDatos"
             android:text="@string/textBtnGuardar"/>
     </LinearLayout>
 </LinearLayout>
