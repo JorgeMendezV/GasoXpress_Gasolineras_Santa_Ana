@@ -17,9 +17,10 @@
         android:textSize="22sp"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="20dp"
-        android:textStyle="normal" />
+        android:textStyle="bold" />
 
         <Spinner
+            android:popupBackground="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner"
@@ -43,20 +44,19 @@
         android:hint="@string/eTextLongitud"/>
 
     <EditText
-        android:layout_width="match_parent"
-        android:textColor="@color/black"
-        android:layout_height="wrap_content"
-        android:textColorHint="@color/black"
-        android:layout_weight="1"
         android:id="@+id/txtDescripcion"
-        android:hint="@string/eTextdescRefe"
+        android:layout_width="match_parent"
+        android:layout_height="271dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
         android:gravity="top"
-
-        />
+        android:hint="@string/eTextdescRefe"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black" />
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="190dp"
         android:id="@+id/fotoGasolinera"
         />
 
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         >
 
         <Button
