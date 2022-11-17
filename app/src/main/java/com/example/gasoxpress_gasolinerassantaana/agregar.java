@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -77,8 +78,10 @@ public class agregar extends AppCompatActivity {
 
         // modelo
         List<String> gasolineras = new ArrayList<String>();
+
         // simplemente agregamos una serie de datos al array nada diferente.
-        String defaultTextSpinner;
+
+        gasolineras.add(0,"Seleccione una gasolinera");
         gasolineras.add("UNO");
         gasolineras.add("Puma Gas Station");
         gasolineras.add("DSC");
@@ -89,12 +92,27 @@ public class agregar extends AppCompatActivity {
         // se puede utilizar arrayAdapter para ver datos de AdapterView, retorna
         // una vista por cada objeto en la collection que nosotros le proporcionamos.
         // tambien puede ser usado por listView o Spinner.
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,gasolineras);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item,gasolineras);
 
         // theme is a set of values for resource attributes; TypedArrays
         // asigna el valor actual de un theme particular.
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        dataAdapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setAdapter(dataAdapter);
+
+        // sobre escribimos los metodos onItemSelected que nos permite manipular los datos seleccionado
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (parent.getItemAtPosition(position).equals("Seleccione una gasolinera")){
+                }else {
+                    String item = parent.getItemAtPosition(position).toString();
+                    Toast.makeText(parent.getContext(),"Selected: " +item, Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         // verificar la version del celular para asignar permisos
 
@@ -106,6 +124,7 @@ public class agregar extends AppCompatActivity {
         }
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     }
+
 
     private void checkPermission() {
         //
