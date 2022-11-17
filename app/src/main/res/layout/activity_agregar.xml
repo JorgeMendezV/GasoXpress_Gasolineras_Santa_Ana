@@ -28,6 +28,7 @@
         android:layout_marginLeft="20dp">
 
         <Spinner
+            android:background="@drawable/style_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner"

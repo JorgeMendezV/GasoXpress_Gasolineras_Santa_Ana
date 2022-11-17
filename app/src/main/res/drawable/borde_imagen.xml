@@ -11,7 +11,10 @@
         <shape
             android:padding="30dp"
             android:shape="rectangle">
-            <corners android:bottomLeftRadius="60dp"/>
+            <corners android:bottomLeftRadius="60dp"
+             android:bottomRightRadius="60dp"
+                />
+
             <stroke
                 android:width="30dp"
                 android:color="@color/white" />

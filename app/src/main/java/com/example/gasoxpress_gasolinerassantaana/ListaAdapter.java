@@ -46,6 +46,8 @@ public class ListaAdapter extends ArrayAdapter<Datos> {
             img.setImageResource(R.drawable.logo_texaco);
         }else if (item.getGasolinera().equals("KFC Gas Station")){
             img.setImageResource(R.drawable.logo_ckf);
+        }else if (item.getGasolinera().equals("Seleccione una gasolinera")){
+
         }
         return rowView;
     }

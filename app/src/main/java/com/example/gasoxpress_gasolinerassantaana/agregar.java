@@ -92,7 +92,7 @@ public class agregar extends AppCompatActivity {
         // se puede utilizar arrayAdapter para ver datos de AdapterView, retorna
         // una vista por cada objeto en la collection que nosotros le proporcionamos.
         // tambien puede ser usado por listView o Spinner.
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item,gasolineras);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.style_spinner,gasolineras);
 
         // theme is a set of values for resource attributes; TypedArrays
         // asigna el valor actual de un theme particular.
@@ -264,18 +264,26 @@ public class agregar extends AppCompatActivity {
         String latitud=txtLatitud.getText().toString();
         String longitud=txtLongitud.getText().toString();
         String descrip=txtDescripcion.getText().toString();
-        ContentValues registro=new ContentValues();
-        registro.put("gasolinera", gasolinera);
-        registro.put("latitud", latitud);
-        registro.put("longitud", longitud);
-        registro.put("descripcion", descrip);
-        registro.put("foto", attachFileName);
-        bd.insert("gasoxpress", null, registro);
-        txtLongitud.setText("");
-        txtLatitud.setText("");
-        txtDescripcion.setText("");
-        bd.close();
-        Toast.makeText(this, "Se cargaron los datos correctamente",
-                Toast.LENGTH_LONG).show();
+        System.out.println(gasolinera);
+        if (!gasolinera.equals("Seleccione una gasolinera")) {
+            ContentValues registro = new ContentValues();
+            registro.put("gasolinera", gasolinera);
+            registro.put("latitud", latitud);
+            registro.put("longitud", longitud);
+            registro.put("descripcion", descrip);
+            registro.put("foto", attachFileName);
+            bd.insert("gasoxpress", null, registro);
+            txtLongitud.setText("");
+            txtLatitud.setText("");
+            txtDescripcion.setText("");
+            bd.close();
+            Toast.makeText(this, "Se cargaron los datos correctamente",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            bd.close();
+            Toast.makeText(this, "Debe seleccionar una gasolinera",
+                    Toast.LENGTH_LONG).show();
+        }
+
     }
 }
