@@ -27,20 +27,20 @@
 
     <Button
         android:layout_width="match_parent"
-        android:text="@string/opt1"
+        android:text="@string/opt1" android:drawableRight = "@drawable/add_map_locationicon"
         android:textSize="24sp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginTop="20dp"
-        android:textAlignment="textStart"
+        android:textAlignment="gravity"
         android:background="@drawable/borde_redondo"
         android:layout_height="wrap_content"
         android:onClick="ejecutarAgregar"/>
 
     <Button
         android:layout_width="match_parent"
-        android:text="@string/opt2"
-        android:textAlignment="textStart"
+        android:text="@string/opt2" android:drawableRight = "@drawable/information_folder_icon"
+        android:textAlignment="gravity"
         android:textSize="24sp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
@@ -50,8 +50,8 @@
 
     <Button
         android:layout_width="match_parent"
-        android:text="@string/opt3"
-        android:textAlignment="textStart"
+        android:text="@string/opt3" android:drawableRight = "@drawable/about_information_icon"
+        android:textAlignment="gravity"
         android:textSize="24sp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
@@ -61,8 +61,8 @@
 
     <Button
         android:layout_width="match_parent"
-        android:text="@string/opt4"
-        android:textAlignment="textStart"
+        android:text="@string/opt4" android:drawableRight = "@drawable/exit_alert_icon"
+        android:textAlignment="gravity"
         android:textSize="24sp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
