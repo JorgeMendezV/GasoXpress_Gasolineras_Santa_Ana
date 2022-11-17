@@ -25,4 +25,9 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(obj);
     }
 
+    public void ejecutarLista(View view){
+        Intent obj = new Intent (this,Lista.class);
+        this.startActivity(obj);
+    }
+
 }
