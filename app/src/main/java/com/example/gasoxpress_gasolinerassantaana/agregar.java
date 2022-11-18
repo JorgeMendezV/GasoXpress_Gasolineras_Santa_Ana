@@ -252,7 +252,7 @@ public class agregar extends AppCompatActivity {
     public void onActivityResult(int requestCode, final int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         try {
-        if (!(Build.VERSION.SDK_INT >= 30)) {
+        if (Build.VERSION.SDK_INT >= 30) {
             if (requestCode == PICTURE_RESULT) {
                     thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                     img.setImageBitmap(thumbnail);
