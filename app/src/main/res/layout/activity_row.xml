@@ -12,6 +12,7 @@
         android:layout_gravity="center"
         android:layout_height="wrap_content"/>
     <LinearLayout
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_marginLeft="10dp"
@@ -20,7 +21,6 @@
             android:layout_width="wrap_content"
             android:text="Titulo"
             android:id="@+id/titulo"
-
             android:textSize="20sp"
             android:layout_height="wrap_content"/>
         <TextView
@@ -34,6 +34,14 @@
             android:textStyle="bold"
             android:id="@+id/ubicacion"
             android:layout_height="wrap_content"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Borrar"
+            android:background="@drawable/borde_redondo"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
     </LinearLayout>
 
 

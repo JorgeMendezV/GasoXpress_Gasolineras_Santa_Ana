@@ -8,11 +8,13 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,9 +27,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,7 +102,7 @@ public class agregar extends AppCompatActivity {
 
         // theme is a set of values for resource attributes; TypedArrays
         // asigna el valor actual de un theme particular.
-        dataAdapter.setDropDownViewResource(R.layout.spinner_item);
+        dataAdapter.setDropDownViewResource(R.layout.style_spinner);
         spinner.setAdapter(dataAdapter);
 
         // sobre escribimos los metodos onItemSelected que nos permite manipular los datos seleccionado
@@ -217,35 +223,53 @@ public class agregar extends AppCompatActivity {
     // quien manejara el objeto sera quien mandara a llamar el objeto.
     public void anexarFoto(View view) throws IOException {
         try {
-            values = new ContentValues();
-            values.put(MediaStore.Images.Media.TITLE, "Gasolinera");
-            values.put(MediaStore.Images.Media.DESCRIPTION, "Foto tomada el " + System.currentTimeMillis());
-            // getContentResolver insert 29 and below API error
-            // Getting the error pre android Q (API 29) and my huawei API is 28 so... theres the problem
-            imageUri = getContentResolver().insert(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-            startActivityForResult(intent, PICTURE_RESULT);
+            if(Build.VERSION.SDK_INT >= 30){
+                values = new ContentValues();
+                values.put(MediaStore.Images.Media.TITLE, "Gasolinera");
+                values.put(MediaStore.Images.Media.DESCRIPTION, "Foto tomada el " + System.currentTimeMillis());
+                imageUri = getContentResolver().insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(intent, PICTURE_RESULT);
+            } else {
+                    Intent intent =  new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    int code =0;
+                    Uri output = FileProvider.getUriForFile(agregar.this,
+                            BuildConfig.APPLICATION_ID + ".provider",
+                            createImageFile());
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, output);
+                    startActivityForResult(intent, code);
+                }
         } catch (Exception error){
             System.out.println("API VERSION: " + Build.VERSION.SDK_INT);
             System.out.println("Error de API <= 29 : " + error);
         }
     }
 
+    // Logica AnexarFotos para API >= 30
     @Override
     public void onActivityResult(int requestCode, final int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICTURE_RESULT){
-            try {
-                thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                img.setImageBitmap(thumbnail);
-                attachFileName = getRealPathFromUri(imageUri);
-                System.out.println(attachFileName);
-            } catch (IOException e) {
-                e.printStackTrace();
+        try {
+        if (Build.VERSION.SDK_INT >= 30) {
+            if (requestCode == PICTURE_RESULT) {
+                    thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                    img.setImageBitmap(thumbnail);
+                    attachFileName = getRealPathFromUri(imageUri);
+                    System.out.println(attachFileName);
+            }
+        } else {
+            if (requestCode==0) {
+                if (resultCode==RESULT_OK) {
+                    Bitmap imagen= BitmapFactory.decodeFile(attachFileName);
+                    img.setImageBitmap(imagen);
+                }
             }
         }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
     }
 
     private String getRealPathFromUri(Uri imageUri) {
@@ -255,6 +279,28 @@ public class agregar extends AppCompatActivity {
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
+    // ----------------------------
+
+
+    // Logica AnexarFotos para API <= 29
+    // para crear un archivo de imagen en algunos dispositivos no compatibles.
+    // versiones probadas no compatibles: API 29 Android 10 con Samsung y API 28 con android 9 en Huawei
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DCIM), "Camera");
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        attachFileName=image.getAbsolutePath();
+        return image;
+    }
+
+
 
     //Metodo para guardar los datos a la tabla de gasoxpress
     public void guardarDatos(View view) {
