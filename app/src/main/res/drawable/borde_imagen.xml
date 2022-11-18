@@ -17,7 +17,7 @@
 
             <stroke
                 android:width="30dp"
-                android:color="@color/white" />
+                android:color="@color/border_color" />
         </shape>
     </item>
 </layer-list>
