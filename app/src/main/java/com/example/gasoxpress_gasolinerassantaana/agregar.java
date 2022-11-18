@@ -223,12 +223,10 @@ public class agregar extends AppCompatActivity {
     // quien manejara el objeto sera quien mandara a llamar el objeto.
     public void anexarFoto(View view) throws IOException {
         try {
-            if(!(Build.VERSION.SDK_INT >= 30)){
+            if(Build.VERSION.SDK_INT >= 30){
                 values = new ContentValues();
                 values.put(MediaStore.Images.Media.TITLE, "Gasolinera");
                 values.put(MediaStore.Images.Media.DESCRIPTION, "Foto tomada el " + System.currentTimeMillis());
-                // getContentResolver insert 29 and below API error
-                // Getting the error pre android Q (API 29) and my huawei API is 28 so... theres the problem
                 imageUri = getContentResolver().insert(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -253,16 +251,13 @@ public class agregar extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, final int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
+        try {
         if (!(Build.VERSION.SDK_INT >= 30)) {
             if (requestCode == PICTURE_RESULT) {
-                try {
                     thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                     img.setImageBitmap(thumbnail);
                     attachFileName = getRealPathFromUri(imageUri);
                     System.out.println(attachFileName);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         } else {
             if (requestCode==0) {
@@ -272,6 +267,9 @@ public class agregar extends AppCompatActivity {
                 }
             }
         }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
     }
 
     private String getRealPathFromUri(Uri imageUri) {
