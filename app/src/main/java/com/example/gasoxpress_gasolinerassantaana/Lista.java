@@ -77,6 +77,7 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemClickL
                     new String[]{String.valueOf(obtenerId())});
             db.close();
             Toast.makeText(this,"Se elimino correctamente", Toast.LENGTH_SHORT).show();
+            finish(); startActivity(getIntent());
         } catch (Exception e){
             System.out.println("Error al eliminar" + e);
         }
