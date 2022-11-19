@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_marginBottom="20dp"
+    tools:viewBindingIgnore="true"
     android:layout_height="wrap_content">
 
     <ImageView
@@ -40,11 +42,11 @@
             android:layout_gravity="right"
             android:text="Borrar"
             android:clickable="true"
+            android:onClick="deleteItem"
             android:focusable="false"
             android:background="@drawable/borde_redondo"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"/>
     </LinearLayout>
-
 
 </LinearLayout>

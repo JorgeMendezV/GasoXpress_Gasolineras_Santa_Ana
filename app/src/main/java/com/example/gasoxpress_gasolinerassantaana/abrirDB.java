@@ -22,5 +22,4 @@ public class abrirDB extends SQLiteOpenHelper {
         db.execSQL("drop table if exists gasoxpress");
         db.execSQL("CREATE TABLE gasoxpress(_id INTEGER PRIMARY KEY AUTOINCREMENT, gasolinera text, latitud text, longitud text, descripcion text, foto text)");
     }
-
 }
