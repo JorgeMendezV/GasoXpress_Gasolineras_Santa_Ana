@@ -30,4 +30,10 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(obj);
     }
 
+    public void ejecutarAcercaDe(View view){
+        Intent obj = new Intent(this,acercaDe.class);
+        this.startActivity(obj);
+
+    }
+
 }

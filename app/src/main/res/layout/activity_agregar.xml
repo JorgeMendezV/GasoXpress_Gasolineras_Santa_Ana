@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="@string/nombrePortada"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="22sp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
@@ -37,19 +37,20 @@
             />
         <EditText
             android:id="@+id/txtLatitud"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/black"
+            android:textColorHint="@color/white"
             android:hint="@string/eTextLatitud"/>
 
         <EditText
             android:id="@+id/txtLongitud"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/black"
-            android:hint="@string/eTextLongitud"/>
+            android:textColorHint="@color/white"
+            android:hint="@string/eTextLongitud"
+            />
 
         <EditText
             android:id="@+id/txtDescripcion"
@@ -59,8 +60,8 @@
             android:layout_weight="1"
             android:gravity="top"
             android:hint="@string/eTextdescRefe"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <ImageView
             android:layout_width="match_parent"
