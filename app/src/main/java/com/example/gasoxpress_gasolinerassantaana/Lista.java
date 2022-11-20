@@ -49,37 +49,39 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
         //lanzamos un parametro del id, el valor que enviamos es el codigo del resgistro que le hicimos touch
         Datos item=items.get(i);
-        Intent m=new Intent(this,Mapa.class);
         // Aqui se almacena el ID
         setIndex(i);
         System.out.println("ID en onItemLongClick " + getIndex() + ", Item : " + item.getId());
         //lanzamos un parametro del id, el valor que enviamos es el codigo del resgistro que le hicimos touch
+        try {
+            list.setLongClickable(true);
+            list.setClickable(true);
+            list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    new AlertDialog.Builder(Lista.this)
+                            .setTitle("Quieres eliminar la gasolinera: " + item.getGasolinera() + " de la lista?")
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    items.remove(getIndex());
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            }).create().show();
+                    return false;
+                }
+            });
 
-        list.setLongClickable(true);
-        list.setClickable(true);
-        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                new AlertDialog.Builder(Lista.this)
-                        .setTitle("Do you want to remove" + items.get(item.getId()) + "from list?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                items.remove(item.getId());
-                                adapter.notifyDataSetChanged();
-                            }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        }).create().show();
+        } catch (Exception error){
+            System.out.println("Ocurrio un error al eliminar Item : " + error);
 
-                return true;
-            }
-        });
-
-        return true;
+        }
+        return false;
     }
 
     //El valor i, representa la posicion del elemento que nosotros hicimos touch
