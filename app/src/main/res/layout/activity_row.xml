@@ -5,6 +5,9 @@
     android:orientation="horizontal"
     android:layout_marginBottom="20dp"
     tools:viewBindingIgnore="true"
+    android:descendantFocusability="blocksDescendants"
+    android:focusableInTouchMode="false"
+    android:focusable="false"
     android:layout_height="wrap_content">
 
     <ImageView
@@ -36,16 +39,6 @@
             android:textStyle="bold"
             android:id="@+id/ubicacion"
             android:layout_height="wrap_content"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="Borrar"
-            android:clickable="true"
-            android:onClick="deleteItem"
-            android:focusable="false"
-            android:background="@drawable/borde_redondo"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+
     </LinearLayout>
 </LinearLayout>
