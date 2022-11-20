@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,6 +23,15 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback {
     private MapFragment mapFragment;
     //Elemento para manipular el mapa
     private GoogleMap mapa;
+    private int i;
+
+    public int getI() {
+        return i;
+    }
+
+    public void setI(int i) {
+        this.i = i;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,5 +71,4 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback {
             mimarker.showInfoWindow();
         }
     }
-
 }
