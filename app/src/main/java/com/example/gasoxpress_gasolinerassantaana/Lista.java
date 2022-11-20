@@ -45,6 +45,8 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
         list.setOnItemLongClickListener(this::onItemLongClick);
     }
 
+
+
     //El valor i, representa la posicion del elemento que nosotros hicimos touch
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -71,6 +73,7 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
                                     db.execSQL("DELETE FROM gasoxpress WHERE _id =" + item.getId());
                                     items.remove(getIndex());
                                     adapter.notifyDataSetChanged();
+                                    finish(); startActivity(getIntent());
                                 }
                             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override
