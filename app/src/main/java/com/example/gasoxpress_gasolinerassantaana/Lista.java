@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,11 +61,12 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                     new AlertDialog.Builder(Lista.this)
-                            .setTitle("Quieres eliminar la gasolinera: " + item.getGasolinera() + " de la lista?")
+                            .setTitle("Quieres eliminar la gasolinera de la lista?")
                             .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     items.remove(getIndex());
+                                    // deleteItem();
                                     adapter.notifyDataSetChanged();
                                 }
                             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -112,5 +114,21 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
         adapter = new ListaAdapter(Lista.this,items);
         list.setAdapter(adapter);
         bd.close();
+    }
+
+    public void deleteItem() {
+        System.out.println("En deleteItem: " + obtenerId());
+        System.out.println("Intento de eliminar registro de lista");
+        try {
+            abrirDB base= new abrirDB(this,"gasolinerasT",null,1);
+            SQLiteDatabase db = base.getWritableDatabase();
+            db.delete("gasoxpress", "_id = ?",
+                    new String[]{String.valueOf(obtenerId())});
+            db.close();
+            Toast.makeText(this,"Se elimino correctamente", Toast.LENGTH_SHORT).show();
+            finish(); startActivity(getIntent());
+        } catch (Exception e){
+            System.out.println("Error al eliminar" + e);
+        }
     }
 }
