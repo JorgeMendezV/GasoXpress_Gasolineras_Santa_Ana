@@ -78,10 +78,8 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
                     return false;
                 }
             });
-
         } catch (Exception error){
             System.out.println("Ocurrio un error al eliminar Item : " + error);
-
         }
         return false;
     }
