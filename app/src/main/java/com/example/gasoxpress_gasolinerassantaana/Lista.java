@@ -45,6 +45,8 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
         list.setOnItemLongClickListener(this::onItemLongClick);
     }
 
+
+
     //El valor i, representa la posicion del elemento que nosotros hicimos touch
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -52,9 +54,10 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
         Datos item=items.get(i);
         // Aqui se almacena el ID
         setIndex(i);
-        System.out.println("ID en onItemLongClick " + getIndex() + ", Item : " + item.getId());
+        System.out.println("onItemLongClick index: " + getIndex() + ", Id registro : " + item.getId());
         //lanzamos un parametro del id, el valor que enviamos es el codigo del resgistro que le hicimos touch
         try {
+            abrirDB base= new abrirDB(this,"gasolinerasT",null,1);
             list.setLongClickable(true);
             list.setClickable(true);
             list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -65,9 +68,12 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
                             .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    SQLiteDatabase db = base.getWritableDatabase();
+                                    System.out.println(item.getId());
+                                    db.execSQL("DELETE FROM gasoxpress WHERE _id =" + item.getId());
                                     items.remove(getIndex());
-                                    // deleteItem();
                                     adapter.notifyDataSetChanged();
+                                    finish(); startActivity(getIntent());
                                 }
                             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override
@@ -112,21 +118,5 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
         adapter = new ListaAdapter(Lista.this,items);
         list.setAdapter(adapter);
         bd.close();
-    }
-
-    public void deleteItem() {
-        System.out.println("En deleteItem: " + obtenerId());
-        System.out.println("Intento de eliminar registro de lista");
-        try {
-            abrirDB base= new abrirDB(this,"gasolinerasT",null,1);
-            SQLiteDatabase db = base.getWritableDatabase();
-            db.delete("gasoxpress", "_id = ?",
-                    new String[]{String.valueOf(obtenerId())});
-            db.close();
-            Toast.makeText(this,"Se elimino correctamente", Toast.LENGTH_SHORT).show();
-            finish(); startActivity(getIntent());
-        } catch (Exception e){
-            System.out.println("Error al eliminar" + e);
-        }
     }
 }
