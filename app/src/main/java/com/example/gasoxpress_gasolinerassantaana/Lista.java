@@ -24,28 +24,21 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
     private ListView list;
 
     public int getIndex() {return index;}
-
     public void setIndex(int index) { this.index = index;}
-
-    public int obtenerId() {
-        return id;
-    }
-
-    public void asignarId(int id) {
-        this.id = id;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
         list=(ListView) findViewById(R.id.lista);
+        list.setOnItemLongClickListener(this);
         list.setOnItemClickListener(this);
         llenarDatos();
-        list.setOnItemLongClickListener(this::onItemLongClick);
     }
 
-
+    public void actualizarActivity (){
+        finish(); startActivity(getIntent());
+    }
 
     //El valor i, representa la posicion del elemento que nosotros hicimos touch
     @Override
@@ -59,10 +52,11 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
         try {
             abrirDB base= new abrirDB(this,"gasolinerasT",null,1);
             list.setLongClickable(true);
-            list.setClickable(true);
             list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    //
                     new AlertDialog.Builder(Lista.this)
                             .setTitle("Quieres eliminar la gasolinera de la lista?")
                             .setPositiveButton("Si", new DialogInterface.OnClickListener() {
@@ -70,15 +64,17 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     SQLiteDatabase db = base.getWritableDatabase();
                                     System.out.println(item.getId());
+                                    // esto se puede hacer desde la clase abrirDB
                                     db.execSQL("DELETE FROM gasoxpress WHERE _id =" + item.getId());
                                     items.remove(getIndex());
                                     adapter.notifyDataSetChanged();
-                                    finish(); startActivity(getIntent());
+                                    actualizarActivity();
                                 }
                             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.dismiss();
+                                    actualizarActivity();
                                 }
                             }).create().show();
                     return false;
@@ -111,7 +107,6 @@ public class Lista extends AppCompatActivity implements AdapterView.OnItemLongCl
         Cursor c=bd.query("gasoxpress",columns,null,null,null,null,null,null);
         if (c.moveToFirst()) {
             do {
-                asignarId(c.getInt(0));
                 items.add(new Datos(c.getInt(0),c.getString(4),c.getString(1),c.getString(2),c.getString(3),c.getString(5)));
             } while (c.moveToNext());
         }
