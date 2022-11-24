@@ -12,7 +12,6 @@
         android:layout_margin="15dp"
         android:layout_width="match_parent"
         android:descendantFocusability="blocksDescendants"
-        android:focusableInTouchMode="false"
         android:focusable="false"
         android:layout_height="match_parent" />
 </LinearLayout>
